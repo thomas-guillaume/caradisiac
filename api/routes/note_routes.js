@@ -44,13 +44,42 @@ async function populate() {
 }
 
 
+async function suv() {
+  elasticClient.search({
+    index: 'caradisiac',
+    type: 'car',
+    body:{
+      "size": 125,
+      "query": {
+        "range": {
+          "volume": {
+            "gte" : "500"
+          }
+        }
+      },
+      "sort":[
+        {"volume.keyword" :{"order":"desc"}}
+      ]
+    }
+  }, function (error, response) {
+       if (error){
+         console.error(error)
+         return;
+       }
+       else {
+         console.log(response);
+       }
+  });
+}
+
+
 module.exports = function(app, db) {
   app.post('/populate', (req, res) => {
     populate()
     res.send('Indexing Records to ElasticSearch')
   });
   app.post('/suv', (req, res) => {
-    // You'll create your note here.
+    suv()
     res.send('List of SUV')
   });
 };
