@@ -8,7 +8,7 @@ const {getModels} = require('node-car-api');
  */
 var elasticClient = new elasticsearch.Client({
     /*
-     * you can replace the ip address by localhost if you run ES locally, I used a Docker image.
+     * you can replace the following ip address by localhost:9200 if elasticsearch is installed on your laptop
      */
     host: '192.168.99.100:9200',
     log: 'trace'
